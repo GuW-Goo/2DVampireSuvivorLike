@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f601b5394c8e6247932e5eaf4cea0a8, type: 3}
+  m_Name: AreaOfEffectData
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerWeaponsSO
+  weaponName: AreaOfEffect
+  weaponType: 5
+  description: 
+  icon: {fileID: 0}
+  weaponPrefab: {fileID: 0}
+  damage: 10
+  cooldown: 1.5
+  area: 1
+  knockbackForce: 2
+  criticalChance: 0.05
+  projectileSpeed: 8
+  projectileCount: 1
+  pierceCount: 1
+  lifeTime: 3
+  explosionRadius: 0
+  spreadAngle: 30
+  rotateSpeed: 150
+  orbitRadius: 2
+  tickInterval: 0.5
+  attackAngle: 90
