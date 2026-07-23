@@ -3,6 +3,7 @@ using UnityEngine;
 public class MonsterSpawner : MonoBehaviour
 {
     [SerializeField] private MonsterPool monsterPool;
+    [SerializeField] private MonsterManager monsterManager;
 
     private float gameTime = 0.0f;
 
@@ -19,6 +20,8 @@ public class MonsterSpawner : MonoBehaviour
         float hpMultiplier = 1.0f + (gameTime / 60f) * 0.2f;
         float damageMultiplier = 1.0f + (gameTime / 60f) * 0.1f;
 
-        monster.InitMonster(hpMultiplier, damageMultiplier);
+        monster.InitMonster(spawnPosition, hpMultiplier, damageMultiplier);
+
+        monsterManager.RegisterMonster(monster);
     }
 }
