@@ -12,6 +12,8 @@ public class WeaponManager : MonoBehaviour
     [Header("현재 장착된 무기들")]
     private List<RuntimeWeapon> activeWaepons = new();
 
+    [SerializeField] private Transform playerTransform;
+
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -55,7 +57,34 @@ public class WeaponManager : MonoBehaviour
 
     private void SpawnWeaponCountroller(RuntimeWeapon weapon)
     {
-        // 실제 무기 인스턴스화 / 컨트롤러 부착 로직 추후 추가
+        GameObject controllerObj = new GameObject($"{weapon.weaponsData.WeaponName}_Controller");
+        controllerObj.transform.SetParent(transform);
+
+        BaseWeaponController controller = null;
+
+        switch(weapon.weaponsData.WeaponType)
+        {
+            case WeaponType.Melee:
+                controller = controllerObj.AddComponent<MeleeWeaponController>();
+                break;
+            case WeaponType.Orbit:
+
+                break;
+            case WeaponType.Aura:
+
+                break;
+            case WeaponType.Projectile:
+
+                break;
+            case WeaponType.Spread:
+
+                break;
+            case WeaponType.AreaOfEffect:
+
+                break;
+        }
+
+        controller.Init(weapon, playerTransform);
     }
 }
 
