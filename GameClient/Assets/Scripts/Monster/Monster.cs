@@ -10,6 +10,7 @@ public class Monster : MonoBehaviour, IDamageable
     private float currentMaxHP;
     private float currentHP;
     private float currentDamage;
+    private Transform targetTransform;
 
     public event Action<Monster> OnDeath;
     public MonsterStatSO StatSO => statSO;
@@ -21,21 +22,33 @@ public class Monster : MonoBehaviour, IDamageable
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
     
-    public void InitMonster(float hpMultiplier = 1.0f, float damageMultiplier = 1.0f)
+    public void InitMonster(Vector2 spawnPosition ,float hpMultiplier = 1.0f, float damageMultiplier = 1.0f)
     {
         currentMaxHP = statSO.MaxHP * hpMultiplier;
         currentHP = currentMaxHP;
         currentDamage = statSO.Damage * damageMultiplier;
 
+        rb.position = spawnPosition;
+        rb.linearVelocity = Vector2.zero;
+
         gameObject.SetActive(true);
     }
 
-    public void Retarget(Vector2 targetPosition)
+    public void SetTarget(Transform target)
     {
-        // 몬스터가 목표를 재설정 하는 로직
+        targetTransform = target;
     }
 
-    public void TakeDamage(float damage, float knockbackForce, Vector2 hitPosition)
+    public void MoveToTarget(float deltaTime)
+    {
+        if(targetTransform == null) return;
+
+        Vector2 dir = (targetTransform.position - transform.position).normalized;
+        Vector2 movePosition = rb.position + dir * (statSO.MoveSpeed * deltaTime);
+        rb.MovePosition(movePosition);
+    }
+
+    public void TakeDamage(float damage, float knockbackForce, Vector2 attackerPosition)
     {
         currentHP -= damage;
 
@@ -52,7 +65,7 @@ public class Monster : MonoBehaviour, IDamageable
     {
         // 경험치나 보상 로직 추후 추가
 
-        if (rb != null) rb.linearVelocity = Vector2.zero;
+        rb.linearVelocity = Vector2.zero;
         OnDeath?.Invoke(this);
     }
 }

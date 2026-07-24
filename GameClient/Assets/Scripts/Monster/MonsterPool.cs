@@ -7,6 +7,7 @@ public class MonsterPool : MonoBehaviour
 
     public void CreatePool(MonsterStatSO statSO, int count)
     {
+        Debug.Log("MonsterPool.CreatePool");
         if(!poolDic.ContainsKey(statSO))
         {
             poolDic.Add(statSO, new Queue<Monster>());
@@ -26,6 +27,7 @@ public class MonsterPool : MonoBehaviour
 
     public Monster GetMonster(MonsterStatSO statSO)
     {
+        Debug.Log("MonsterPool.GetMonster()");
         if(!poolDic.ContainsKey(statSO) || poolDic[statSO].Count == 0)
         {
             // 필요시 추가 Instantiate 생성 로직
