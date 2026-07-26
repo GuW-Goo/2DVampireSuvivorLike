@@ -1,4 +1,6 @@
+using NUnit.Framework;
 using UnityEngine;
+using System.Collections.Generic;
 
 // 무기 매커니즘 유형 정의
 public enum WeaponType
@@ -44,6 +46,10 @@ public class PlayerWeaponsSO : ScriptableObject
     [SerializeField] private float tickInterval = 0.5f;     // Aura 틱 데미지 주기
     [SerializeField] private float attackAngle = 90.0f;     // Melee 궤적 각도
 
+    [Header("Orbit 갯수 추가 레벨 설정")]
+    [SerializeField] private int maxOrbiterCount = 5;
+    [SerializeField] private List<int> countIncreaseLevels = new List<int> { 1, 3, 5, 7, 11 };
+
     // Getters
     public string WeaponName => weaponName;
     public WeaponType WeaponType => weaponType;
@@ -68,4 +74,7 @@ public class PlayerWeaponsSO : ScriptableObject
     public float OrbitRadius => orbitRadius;
     public float TickInterval => tickInterval;
     public float AttackAngle => attackAngle;
+
+    public int MaxOrbiterCount => maxOrbiterCount;
+    public List<int> CountIncreaseLevels => countIncreaseLevels;
 }

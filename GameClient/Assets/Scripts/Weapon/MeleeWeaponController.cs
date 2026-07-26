@@ -5,23 +5,29 @@ public class MeleeWeaponController : BaseWeaponController
 {
     // 적 몬스터 탐색범위 보정
     [SerializeField] private float extraRange = 5.0f;
-    [SerializeField] private MeleeHitbox meleeHitbox;
 
     protected override void Attack()
     {
         float searchRadius = runtimeWeapon.weaponsData.Area + extraRange;
         Monster target = MonsterManager.Instance.GetNearestMonster(playerTransform.position, searchRadius);
 
-        if (target != null) return;
+        if (target == null) return;
+        if (spawnedWeaponPrefab == null) return;
 
-        Vector2 attackDir = (target.transform.position - playerTransform.position).normalized;
+        MeleeHitbox meleeHitbox = spawnedWeaponPrefab.GetComponentInChildren<MeleeHitbox>(true);
 
-        float damage = runtimeWeapon.weaponsData.Damage;
-        float knockback = runtimeWeapon.weaponsData.KnockbackForce;
+        if (meleeHitbox != null)
+        {
+            Vector2 attackDir = (target.transform.position - playerTransform.position).normalized;
 
-        meleeHitbox.SetUp(damage, knockback, playerTransform);
+            float damage = runtimeWeapon.weaponsData.Damage;
+            float knockback = runtimeWeapon.weaponsData.KnockbackForce;
 
-        StartCoroutine(SwingRoutine(attackDir));
+            meleeHitbox.SetUp(damage, knockback, playerTransform);
+
+            StartCoroutine(SwingRoutine(attackDir));
+        }
+
     }
 
     IEnumerator SwingRoutine(Vector2 attackDir)
@@ -34,9 +40,9 @@ public class MeleeWeaponController : BaseWeaponController
         float endAngle = baseAngle + (attackAngle / 2.0f);
 
         float elapsed = 0.0f;
-        float duration = 0.1f;
+        float duration = 0.05f;
 
-        meleeHitbox.gameObject.SetActive(true);
+        spawnedWeaponPrefab.SetActive(true);
 
         while (elapsed < duration)
         {
@@ -45,11 +51,12 @@ public class MeleeWeaponController : BaseWeaponController
 
             float currentAngle = (float)Mathf.Lerp(startAngle, endAngle, progress);
 
-            transform.rotation = Quaternion.Euler(0.0f, 0.0f, currentAngle);
+            transform.localPosition = Vector2.zero;
+            transform.localRotation = Quaternion.Euler(0.0f, 0.0f, currentAngle);
 
             yield return null;
         }
 
-        meleeHitbox.gameObject.SetActive(false);
+        spawnedWeaponPrefab.gameObject.SetActive(false);
     }
 }

@@ -44,7 +44,7 @@ public class WeaponManager : MonoBehaviour
         if (existingWeapon != null)
         {
             existingWeapon.currentLevel++;
-            Debug.Log($"{selectedSO.WeaponName} 레벨업! (lv.{existingWeapon.currentLevel}");
+            Debug.Log($"{selectedSO.WeaponName} 레벨업! (lv.{existingWeapon.currentLevel})");
         }
         else
         {
@@ -68,19 +68,19 @@ public class WeaponManager : MonoBehaviour
                 controller = controllerObj.AddComponent<MeleeWeaponController>();
                 break;
             case WeaponType.Orbit:
-
+                controller = controllerObj.AddComponent<OrbitWeaponController>();
                 break;
             case WeaponType.Aura:
-
+                controller = controllerObj.AddComponent<AuraWeaponController>();
                 break;
             case WeaponType.Projectile:
-
+                controller = controllerObj.AddComponent<ProjectileWeaponController>();
                 break;
             case WeaponType.Spread:
-
+                controller = controllerObj.AddComponent<SpreadWeaponController>();
                 break;
             case WeaponType.AreaOfEffect:
-
+                controller = controllerObj.AddComponent<AreaOfEffectWeaponController>();
                 break;
         }
 

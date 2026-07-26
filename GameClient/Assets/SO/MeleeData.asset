@@ -16,7 +16,7 @@ MonoBehaviour:
   weaponType: 0
   description: 
   icon: {fileID: 0}
-  weaponPrefab: {fileID: 0}
+  weaponPrefab: {fileID: 3571306239180279170, guid: 7215bae4130cfe644b58ff60debc0ec0, type: 3}
   damage: 10
   cooldown: 1.5
   area: 1
@@ -31,4 +31,4 @@ MonoBehaviour:
   rotateSpeed: 150
   orbitRadius: 2
   tickInterval: 0.5
-  attackAngle: 90
+  attackAngle: 110

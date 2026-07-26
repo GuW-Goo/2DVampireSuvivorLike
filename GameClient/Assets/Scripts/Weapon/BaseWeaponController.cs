@@ -5,12 +5,25 @@ public abstract class BaseWeaponController : MonoBehaviour
 {
     protected RuntimeWeapon runtimeWeapon;
     protected Transform playerTransform;
+    protected GameObject spawnedWeaponPrefab;
     private float timer = 0.0f;
 
     public virtual void Init(RuntimeWeapon weapon, Transform player)
     {
         runtimeWeapon = weapon;
         playerTransform = player;
+        transform.SetParent(playerTransform);
+        transform.localPosition = Vector3.zero;
+        transform.localRotation = Quaternion.identity;
+
+        if(runtimeWeapon.weaponsData != null && runtimeWeapon.weaponsData.WeaponPrefab != null)
+        {
+            spawnedWeaponPrefab = Instantiate(runtimeWeapon.weaponsData.WeaponPrefab, transform);
+            spawnedWeaponPrefab.transform.localPosition = Vector3.zero;
+            spawnedWeaponPrefab.transform.localRotation = Quaternion.identity;
+
+            spawnedWeaponPrefab.SetActive(false);
+        }
     }
 
     protected void Update()

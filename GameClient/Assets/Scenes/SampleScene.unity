@@ -28430,6 +28430,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b165001fea7ed3e41b742af58cd2c07f, type: 2}
   - {fileID: 11400000, guid: c88f5f70ecf9db14498e50289479ed10, type: 2}
   - {fileID: 11400000, guid: e310599c90428c3428e52d4feed0019a, type: 2}
+  playerTransform: {fileID: 2005249477}
 --- !u!4 &1789462236
 Transform:
   m_ObjectHideFlags: 0
@@ -28488,6 +28489,52 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 550868016}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1954251878
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1954251880}
+  - component: {fileID: 1954251879}
+  m_Layer: 0
+  m_Name: MonsterTest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1954251879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1954251878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fa27574273963b44ab13aa3ed66ff40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MonsterTrackingTest
+  spawner: {fileID: 1774269270}
+  statSO: {fileID: 11400000, guid: 40ca2d73a1fe122479d8bcdc3bef22d6, type: 2}
+--- !u!4 &1954251880
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1954251878}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.14574, y: 3.98463, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2005249476
@@ -28635,3 +28682,4 @@ SceneRoots:
   - {fileID: 1774269271}
   - {fileID: 1242837889}
   - {fileID: 1229414127}
+  - {fileID: 1954251880}
