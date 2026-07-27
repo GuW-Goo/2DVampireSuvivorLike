@@ -18,7 +18,8 @@ public class OrbitWeaponController : BaseWeaponController
             spawnedWeaponPrefab.SetActive(false);
         }
 
-        RefreshOrbiters();
+        int initialCount = GetCountByLevel(runtimeWeapon.currentLevel);
+        RefreshOrbiters(initialCount);
     }
 
     private void Update()
@@ -33,7 +34,7 @@ public class OrbitWeaponController : BaseWeaponController
         int targetCount = GetCountByLevel(runtimeWeapon.currentLevel);
         if(targetCount != currentOrbiterCount)
         {
-            RefreshOrbiters();
+            RefreshOrbiters(targetCount);
         }
     }
 
@@ -51,13 +52,59 @@ public class OrbitWeaponController : BaseWeaponController
 
         int count = levels.Count(lvl => currentlevel >= lvl);
 
-        return Mathf.Min(count, maxLimit);
+        return Mathf.Clamp(count, 1, maxLimit);
     }
 
 
-    private void RefreshOrbiters()
+    private void RefreshOrbiters(int count)
     {
-        // Todo: Orbit의 공전궤도 계산 로직 추가
+        float radius = runtimeWeapon.weaponsData.OrbitRadius;
+        GameObject prefab = runtimeWeapon.weaponsData.WeaponPrefab;
+
+        if (prefab == null) return;
+
+        currentOrbiterCount = count;
+
+        // 필요한 개수보다 모자라면 추가로 생성
+        while(activeOrbiters.Count < count)
+        {
+            GameObject newOrbiter = Instantiate(prefab, transform);
+            newOrbiter.SetActive(false);
+            activeOrbiters.Add(newOrbiter);
+        }
+
+        // 360도를 갯수만큼 균등 분할
+        float angleStep = count > 0 ? 360.0f / count : 0.0f;
+
+        for(int i = 0; i < activeOrbiters.Count; i++)
+        {
+            GameObject orbiter = activeOrbiters[i];
+
+            if(i < count)
+            {
+                float currentAngle = i * angleStep * Mathf.Deg2Rad;
+                Vector2 spawnPos = new Vector2(
+                    Mathf.Cos(currentAngle) * radius, 
+                    Mathf.Sin(currentAngle) * radius
+                );
+
+                orbiter.transform.localPosition = spawnPos;
+                orbiter.transform.localRotation = Quaternion.identity;
+                orbiter.SetActive(true);
+
+                MeleeHitbox hitbox = orbiter.GetComponent<MeleeHitbox>();
+                if (hitbox != null)
+                {
+                    hitbox.SetUp(runtimeWeapon.GetCalculateDamage(), runtimeWeapon.weaponsData.KnockbackForce, playerTransform);
+                }
+            }
+            else
+            {
+                // 필요갯수 초과시 남는 공전체 비활성화
+                orbiter.SetActive(false);
+            }
+
+        }
     }
 
 
